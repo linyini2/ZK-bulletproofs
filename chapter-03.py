@@ -18,7 +18,11 @@ B = (FQ(128486065350455871287888893172307515183924786911123755697753900951123306
 def commit(f_0, f_1, f_2, gamma_0, gamma_1, gamma_2, G, B):
     # fill this in
     # return the commitments as a tuple (C0, C1, C2)
-    pass
+    # pass
+    C0 = add(multiply(G, f_0), multiply(B, gamma_0))
+    C1 = add(multiply(G, f_1), multiply(B, gamma_1))
+    C2 = add(multiply(G, f_2), multiply(B, gamma_2))
+    return C0, C1, C2
 
 def evaluate(f_0, f_1, f_2, u):
     return (f_0 + f_1 * u + f_2 * u**2) % p
@@ -26,29 +30,35 @@ def evaluate(f_0, f_1, f_2, u):
 def prove(gamma_0, gamma_1, gamma_2, u):
     # fill this in
     # return pi
-    pass
+    # pass
+    pi = evaluate(gamma_0, gamma_1, gamma_2, u)
+    return pi
 
 def verify(C0, C1, C2, G, B, f_u, pi):
     # fill this in
     # Return true or false
-    pass
+    # pass
+    LHS = add(C0, multiply(C1, u))
+    LHS = add(LHS, multiply(C2, u**2))
+    RHS = add(multiply(G, f_u), multiply(B, pi))
+    return LHS == RHS
 
 ## step 0: Prover and verifier agree on G and B
 
 ## step 1: Prover creates the commitments
 ### f(x) = f_0 + f_1x + f_2x^2
-f_0 = ...
-f_1 = ...
-f_2 = ...
+f_0 = 56
+f_1 = 34235
+f_2 = 675
 
 ### blinding terms
-gamma_0 = ...
-gamma_1 = ...
-gamma_2 = ...
+gamma_0 = 654647
+gamma_1 = 35432
+gamma_2 = 3654
 C0, C1, C2 = commit(f_0, f_1, f_2, gamma_0, gamma_1, gamma_2, G, B)
 
 ## step 2: Verifier picks u
-u = ...
+u = 45643
 
 ## step 3: Prover evaluates f(u) and pi
 
